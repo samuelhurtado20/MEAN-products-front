@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Product } from 'src/app/models/producto';
 import { ProductoService } from 'src/app/services/producto.service';
@@ -12,12 +12,15 @@ import { ProductoService } from 'src/app/services/producto.service';
 })
 export class CrearProductoComponent implements OnInit {
   productForm: FormGroup;
+  title = 'New Product';
+  id: string;
 
   constructor(
     private fb: FormBuilder,
     private router: Router,
     private toastr: ToastrService,
-    private productService: ProductoService
+    private productService: ProductoService,
+    private aRouter: ActivatedRoute
   ) {
     this.productForm = this.fb.group({
       Name: ['', Validators.required],
@@ -25,9 +28,13 @@ export class CrearProductoComponent implements OnInit {
       Location: ['', Validators.required],
       Price: ['', Validators.required],
     });
+    this.id = this.aRouter.snapshot.paramMap.get('id')!;
+    //this.id = this.aRouter.snapshot.paramMap.get('id');
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.isEdit();
+  }
 
   addProduct() {
     console.log(this.productForm);
@@ -40,16 +47,44 @@ export class CrearProductoComponent implements OnInit {
       Price: this.productForm.get('Price')?.value,
     };
 
-    this.productService.createProduct(newProduct).subscribe(
-      (data) => {
-        this.toastr.success('Hello world!', 'Toastr fun!');
-        this.router.navigate(['/']);
-      },
-      (error) => {
-        this.toastr.error('Unexpected Error', 'Error');
-        console.log(error);
-        this.productForm.reset();
-      }
-    );
+    if (this.id !== null) {
+      this.productService.updateProduct(this.id, newProduct).subscribe(
+        (data) => {
+          this.toastr.info('Hello world!', 'Toastr fun!');
+          this.router.navigate(['/']);
+        },
+        (error) => {
+          this.toastr.error('Unexpected Error', 'Error');
+          console.log(error);
+          this.productForm.reset();
+        }
+      );
+    } else {
+      this.productService.createProduct(newProduct).subscribe(
+        (data) => {
+          this.toastr.success('Hello world!', 'Toastr fun!');
+          this.router.navigate(['/']);
+        },
+        (error) => {
+          this.toastr.error('Unexpected Error', 'Error');
+          console.log(error);
+          this.productForm.reset();
+        }
+      );
+    }
+  }
+
+  isEdit() {
+    if (this.id !== null) {
+      this.title = 'Edit Product';
+      this.productService.getProduct(this.id).subscribe((data) => {
+        this.productForm.setValue({
+          Name: data.Name,
+          Category: data.Category,
+          Location: data.Location,
+          Price: data.Price,
+        });
+      });
+    }
   }
 }

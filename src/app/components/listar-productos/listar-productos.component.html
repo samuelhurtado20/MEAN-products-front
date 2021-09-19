@@ -29,7 +29,10 @@
                 <td>{{ prod.Location }}</td>
                 <td>{{ prod.Price }}</td>
                 <td>
-                  <i class="fas fa-pen text-primary"></i>
+                  <i
+                    [routerLink]="['/Editar', prod._id]"
+                    class="fas fa-pen text-primary"
+                  ></i>
                   <i
                     (click)="deleteProduct(prod._id)"
                     class="fas fa-trash-alt text-danger"

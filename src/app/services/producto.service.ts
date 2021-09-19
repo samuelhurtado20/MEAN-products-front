@@ -18,9 +18,16 @@ export class ProductoService {
   deleteProduct(id: string): Observable<any> {
     return this.http.delete(this.url + id);
   }
-  
+
   createProduct(product: Product): Observable<any> {
     return this.http.post(this.url, product);
   }
 
+  getProduct(id: string): Observable<any> {
+    return this.http.get(this.url + id);
+  }
+
+  updateProduct(id: string, product: Product): Observable<any> {
+    return this.http.put(this.url + id, product);
+  }
 }
