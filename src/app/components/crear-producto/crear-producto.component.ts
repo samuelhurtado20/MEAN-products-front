@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Product } from 'src/app/models/producto';
+import { ProductoService } from 'src/app/services/producto.service';
 
 @Component({
   selector: 'app-crear-producto',
@@ -12,12 +13,17 @@ import { Product } from 'src/app/models/producto';
 export class CrearProductoComponent implements OnInit {
   productForm: FormGroup;
 
-  constructor(private fb: FormBuilder, private router: Router,private toastr: ToastrService) {
+  constructor(
+    private fb: FormBuilder,
+    private router: Router,
+    private toastr: ToastrService,
+    private productService: ProductoService
+  ) {
     this.productForm = this.fb.group({
-      name: ['', Validators.required],
-      category: ['', Validators.required],
-      location: ['', Validators.required],
-      price: ['', Validators.required],
+      Name: ['', Validators.required],
+      Category: ['', Validators.required],
+      Location: ['', Validators.required],
+      Price: ['', Validators.required],
     });
   }
 
@@ -25,15 +31,25 @@ export class CrearProductoComponent implements OnInit {
 
   addProduct() {
     console.log(this.productForm);
-    console.log(this.productForm.get('name')?.value);
+    console.log(this.productForm.get('Name')?.value);
 
-    const newProduct : Product = {
-      name: this.productForm.get('name')?.value,
-      category: this.productForm.get('category')?.value,
-      location: this.productForm.get('location')?.value,
-      price: this.productForm.get('price')?.value
-    }
-    this.toastr.success('Hello world!', 'Toastr fun!');
-    this.router.navigate(['/'])
+    const newProduct: Product = {
+      Name: this.productForm.get('Name')?.value,
+      Category: this.productForm.get('Category')?.value,
+      Location: this.productForm.get('Location')?.value,
+      Price: this.productForm.get('Price')?.value,
+    };
+
+    this.productService.createProduct(newProduct).subscribe(
+      (data) => {
+        this.toastr.success('Hello world!', 'Toastr fun!');
+        this.router.navigate(['/']);
+      },
+      (error) => {
+        this.toastr.error('Unexpected Error', 'Error');
+        console.log(error);
+        this.productForm.reset();
+      }
+    );
   }
 }

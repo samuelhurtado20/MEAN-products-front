@@ -1,19 +1,14 @@
 export class Product {
   _id?: string;
-  name: string;
-  category: string;
-  location: string;
-  price: number;
+  Name: string;
+  Category: string;
+  Location: string;
+  Price: number;
 
-  constructor(
-    name: string,
-    category: string,
-    location: string,
-    price: number
-  ) {
-    this.name = name;
-    this.category = category;
-    this.location = location;
-    this.price = price;
+  constructor(Name: string, Category: string, Location: string, Price: number) {
+    this.Name = Name;
+    this.Category = Category;
+    this.Location = Location;
+    this.Price = Price;
   }
 }

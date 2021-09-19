@@ -7,7 +7,10 @@
           <button class="btn btn-success float-end" routerLink="/Crear">
             <i class="fas fa-plus-square"></i> Agregar
           </button>
-          <table class="table table-striped mt-4">
+          <table
+            *ngIf="listProducts.length > 0"
+            class="table table-striped mt-4"
+          >
             <thead>
               <tr>
                 <th scope="col">#</th>
@@ -19,40 +22,28 @@
               </tr>
             </thead>
             <tbody>
-              <tr>
+              <tr *ngFor="let prod of listProducts">
                 <th scope="row">1</th>
-                <td>Mark</td>
-                <td>Otto</td>
-                <td>@mdo</td>
-                <td>Otto</td>
+                <td>{{ prod.Name }}</td>
+                <td>{{ prod.Category }}</td>
+                <td>{{ prod.Location }}</td>
+                <td>{{ prod.Price }}</td>
                 <td>
                   <i class="fas fa-pen text-primary"></i>
-                  <i class="fas fa-trash-alt text-danger"></i>
-                </td>
-              </tr>
-              <tr>
-                <th scope="row">2</th>
-                <td>Jacob</td>
-                <td>Thornton</td>
-                <td>@fat</td>
-                <td>Otto</td>
-                <td>
-                  <i class="fas fa-pen text-primary"></i>
-                  <i class="fas fa-trash-alt text-danger"></i>
-                </td>
-              </tr>
-              <tr>
-                <th scope="row">3</th>
-                <td colspan="2">Larry the Bird</td>
-                <td>@twitter</td>
-                <td>Otto</td>
-                <td>
-                  <i class="fas fa-pen text-primary"></i>
-                  <i class="fas fa-trash-alt text-danger"></i>
+                  <i
+                    (click)="deleteProduct(prod._id)"
+                    class="fas fa-trash-alt text-danger"
+                  ></i>
                 </td>
               </tr>
             </tbody>
           </table>
+          <h5
+            style="text-align: start; margin-top: 10px"
+            *ngIf="listProducts.length < 1"
+          >
+            There are no products
+          </h5>
         </div>
       </div>
     </div>

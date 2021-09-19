@@ -13,15 +13,15 @@
             <div class="mb-3">
               <input
                 type="text"
-                formControlName="name"
+                formControlName="Name"
                 class="form-control"
                 placeholder="Nombre del Producto"
               />
               <div
                 class="text-danger"
                 *ngIf="
-                  productForm.get('name')?.hasError('required') &&
-                  productForm.get('name')?.touched
+                  productForm.get('Name')?.hasError('required') &&
+                  productForm.get('Name')?.touched
                 "
               >
                 <span>Name is required</span>
@@ -30,52 +30,52 @@
             <div class="mb-3">
               <input
                 type="text"
-                formControlName="category"
+                formControlName="Category"
                 class="form-control"
                 placeholder="Categoria del Producto"
               />
               <div
                 class="text-danger"
                 *ngIf="
-                  productForm.get('category')?.hasError('required') &&
-                  productForm.get('category')?.touched
+                  productForm.get('Category')?.hasError('required') &&
+                  productForm.get('Category')?.touched
                 "
               >
-                <span>category is required</span>
+                <span>Category is required</span>
               </div>
             </div>
             <div class="mb-3">
               <input
                 type="text"
-                formControlName="location"
+                formControlName="Location"
                 class="form-control"
                 placeholder="Ubicacion del Producto"
               />
               <div
                 class="text-danger"
                 *ngIf="
-                  productForm.get('location')?.hasError('required') &&
-                  productForm.get('location')?.touched
+                  productForm.get('Location')?.hasError('required') &&
+                  productForm.get('Location')?.touched
                 "
               >
-                <span>location is required</span>
+                <span>Location is required</span>
               </div>
             </div>
             <div class="mb-3">
               <input
                 type="number"
-                formControlName="price"
+                formControlName="Price"
                 class="form-control"
                 placeholder="Precio del Producto"
               />
               <div
                 class="text-danger"
                 *ngIf="
-                  productForm.get('price')?.hasError('required') &&
-                  productForm.get('price')?.touched
+                  productForm.get('Price')?.hasError('required') &&
+                  productForm.get('Price')?.touched
                 "
               >
-                <span>price is required</span>
+                <span>Price is required</span>
               </div>
             </div>
             <div class="mb3">
