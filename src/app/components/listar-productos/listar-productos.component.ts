@@ -23,7 +23,7 @@ export class ListarProductosComponent implements OnInit {
     this._productService.getProducts().subscribe(
       (data) => {
         console.log(data);
-        this.listProducts = data;
+        this.listProducts = data.results;
       },
       (error) => {
         console.log(error);

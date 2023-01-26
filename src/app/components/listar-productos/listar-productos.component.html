@@ -15,7 +15,7 @@
               <tr>
                 <th scope="col">#</th>
                 <th scope="col">Producto</th>
-                <th scope="col">Categoria</th>
+                <th scope="col">Image</th>
                 <th scope="col">Ubicacion</th>
                 <th scope="col">Precio</th>
                 <th scope="col"></th>
@@ -25,7 +25,7 @@
               <tr *ngFor="let prod of listProducts">
                 <th scope="row">1</th>
                 <td>{{ prod.Name }}</td>
-                <td>{{ prod.Category }}</td>
+                <td><img src="{{ prod.Image }}" alt=""></td>
                 <td>{{ prod.Location }}</td>
                 <td>{{ prod.Price }}</td>
                 <td>
